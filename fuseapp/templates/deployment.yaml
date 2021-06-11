@@ -35,16 +35,24 @@ spec:
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: 80
+              containerPort: 8080
+              protocol: TCP
+            - name: prometheus
+              containerPort: 9779
+              protocol: TCP
+            - name: jolokia
+              containerPort: 8778
               protocol: TCP
           livenessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.health.httpGet.path }}
+              port: {{ .Values.health.httpGet.port }}
+              scheme: {{ .Values.health.httpGet.scheme }}
           readinessProbe:
             httpGet:
-              path: /
-              port: http
+              path: {{ .Values.health.httpGet.path }}
+              port: {{ .Values.health.httpGet.port }}
+              scheme: {{ .Values.health.httpGet.scheme }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
       {{- with .Values.nodeSelector }}

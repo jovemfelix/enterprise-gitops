@@ -5,11 +5,15 @@ metadata:
   labels:
     {{- include "fuseapp.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: ClusterIP
   ports:
-    - port: {{ .Values.service.port }}
-      targetPort: http
+    - name: 8778-tcp
       protocol: TCP
-      name: http
+      port: 8778
+      targetPort: 8778
+    - name: 9779-tcp
+      protocol: TCP
+      port: 9779
+      targetPort: 9779
   selector:
     {{- include "fuseapp.selectorLabels" . | nindent 4 }}
