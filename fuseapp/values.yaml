@@ -37,6 +37,9 @@ securityContext: {}
   # runAsNonRoot: true
   # runAsUser: 1000
 
+service:
+  port: 8080
+
 ingress:
   enabled: false
   className: ""
