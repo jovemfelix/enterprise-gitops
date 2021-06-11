@@ -4,6 +4,8 @@ metadata:
   name: {{ include "fuseapp.fullname" . }}
   labels:
     {{- include "fuseapp.labels" . | nindent 4 }}
+    prometheus.io/port: '9779'
+    prometheus.io/scrape: 'true'
 spec:
   type: {{ .Values.service.type }}
   ports:
